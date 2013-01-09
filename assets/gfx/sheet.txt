@@ -1,6 +1,0 @@
-diskus = 0 93 40 20
-glow_things = 0 125 8 5
-orbs = 40 64 36 24
-rockets = 0 113 20 12
-ships = 0 0 288 64
-totem = 0 64 40 29

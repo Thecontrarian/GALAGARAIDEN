@@ -1,0 +1,10 @@
+<TextureAtlas imagePath='starlingSheet.png'>
+	<SubTexture name="ships" x="0" y="0" width="288" height="64" />
+	<SubTexture name="programmer_enemy" x="0" y="64" width="32" height="32" />
+	<SubTexture name="totem" x="32" y="64" width="40" height="29" />
+	<SubTexture name="orbs" x="72" y="64" width="36" height="24" />
+	<SubTexture name="diskus" x="108" y="64" width="40" height="20" />
+	<SubTexture name="rockets" x="148" y="64" width="20" height="12" />
+	<SubTexture name="programmer_enemyBullet" x="168" y="64" width="6" height="8" />
+	<SubTexture name="glow_things" x="174" y="64" width="8" height="5" />
+</TextureAtlas>
