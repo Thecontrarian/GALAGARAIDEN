@@ -8,6 +8,8 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+//using XnaUtility;
+using XnaUtility.Debug;
 
 namespace GalagaRadien
 {
@@ -16,13 +18,33 @@ namespace GalagaRadien
     /// </summary>
     public class Game1 : Microsoft.Xna.Framework.Game
     {
-        GraphicsDeviceManager graphics;
-        SpriteBatch spriteBatch;
+        private Random random = new Random();
+        private GraphicsDeviceManager graphics;
+        private SpriteBatch spriteBatch;
+        private XnaWatch watch;
+        private AtlasHandler atlasHandler;
+        private double timePassed;
+        private double frameRate;
+        private Matrix scale;
 
         public Game1()
         {
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
+            
+            atlasHandler = new AtlasHandler(this, "MASTER GAIDEN SHEET", "MASTER GAIDEN SHEET DICT");
+            Components.Add(atlasHandler);
+            Services.AddService(typeof(AtlasHandler), atlasHandler);
+            Services.AddService(typeof(Random),random);
+            watch = new XnaWatch(this,Color.White);
+            Components.Add(watch);
+            Services.AddService(typeof(XnaWatch), watch);
+            Components.Add(new PlayerClass(this));
+//            Components.Add(new FrameRateCounter(this));
+            graphics.SynchronizeWithVerticalRetrace = false;
+            this.IsFixedTimeStep = false;
+            graphics.ApplyChanges();
+            
         }
 
         /// <summary>
@@ -34,7 +56,11 @@ namespace GalagaRadien
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            spriteBatch = new SpriteBatch(GraphicsDevice);
+            Services.AddService(typeof(SpriteBatch), spriteBatch);
+            
+            scale = Matrix.CreateScale(2f,2f,1f);
+//            watch.AddToWatch(new WatchItem("Scale", () => scale));
             base.Initialize();
         }
 
@@ -45,7 +71,10 @@ namespace GalagaRadien
         protected override void LoadContent()
         {
             // Create a new SpriteBatch, which can be used to draw textures.
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+            
+            watch.AddToWatch(new WatchItem("Component Count", () => this.Components.Count));
+            watch.AddToWatch(new WatchItem("FrameRate", () => frameRate));
+            watch.AddToWatch(new WatchItem("Framestep", () => this.IsFixedTimeStep));
 
             // TODO: use this.Content to load your game content here
         }
@@ -69,8 +98,16 @@ namespace GalagaRadien
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-
+            timePassed += this.TargetElapsedTime.TotalSeconds;
             // TODO: Add your update logic here
+//            KeyboardState kbState = Keyboard.GetState();
+//            if (kbState.IsKeyDown(Keys.Space))
+//            {
+//                for (int i = 0; i < 10; i++)
+//                {
+//                    Components.Add(new PlayerClass(this));
+//                }
+//            }
 
             base.Update(gameTime);
         }
@@ -81,11 +118,12 @@ namespace GalagaRadien
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Draw(GameTime gameTime)
         {
-            GraphicsDevice.Clear(Color.CornflowerBlue);
-
+            GraphicsDevice.Clear(Color.Black);
+            frameRate = 1 / (float)gameTime.ElapsedGameTime.TotalSeconds;
             // TODO: Add your drawing code here
-
+            spriteBatch.Begin(SpriteSortMode.Deferred, null,SamplerState.PointClamp,null,null,null,scale);
             base.Draw(gameTime);
+            spriteBatch.End();
         }
     }
 }

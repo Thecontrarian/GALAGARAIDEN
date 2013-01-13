@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GalagaRadien", "GalagaRadien\GalagaRadien\GalagaRadien.csproj", "{BC5C6CB2-80C2-42C1-A839-99B730CED85D}"
 EndProject
-Project("{96E2B04D-8817-42C6-938A-82C39BA4D311}") = "GalagaRadienContent", "GalagaRadien\GalagaRadienContent\GalagaRadienContent.contentproj", "{96F9B698-C35A-4BF1-AD28-650960A46406}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GalagaRadienContent", "GalagaRadien\GalagaRadienContent\GalagaRadienContent.contentproj", "{96F9B698-C35A-4BF1-AD28-650960A46406}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XnaUtility", "..\XnaUtility\XnaUtility\XnaUtility.csproj", "{10CF453A-4F1F-4F58-81F8-3C6B8D4D1BA9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +19,10 @@ Global
 		{BC5C6CB2-80C2-42C1-A839-99B730CED85D}.Release|x86.Build.0 = Release|x86
 		{96F9B698-C35A-4BF1-AD28-650960A46406}.Debug|x86.ActiveCfg = Debug|x86
 		{96F9B698-C35A-4BF1-AD28-650960A46406}.Release|x86.ActiveCfg = Release|x86
+		{10CF453A-4F1F-4F58-81F8-3C6B8D4D1BA9}.Debug|x86.ActiveCfg = Debug|x86
+		{10CF453A-4F1F-4F58-81F8-3C6B8D4D1BA9}.Debug|x86.Build.0 = Debug|x86
+		{10CF453A-4F1F-4F58-81F8-3C6B8D4D1BA9}.Release|x86.ActiveCfg = Release|x86
+		{10CF453A-4F1F-4F58-81F8-3C6B8D4D1BA9}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

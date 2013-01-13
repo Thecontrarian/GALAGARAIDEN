@@ -72,6 +72,10 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AtlasHandler.cs" />
+    <Compile Include="FrameRateCounter.cs" />
+    <Compile Include="DrawableEntity.cs" />
+    <Compile Include="PlayerClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
@@ -83,6 +87,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\XnaUtility\XnaUtility\XnaUtility.csproj">
+      <Project>{10CF453A-4F1F-4F58-81F8-3C6B8D4D1BA9}</Project>
+      <Name>XnaUtility</Name>
+    </ProjectReference>
     <ProjectReference Include="..\GalagaRadienContent\GalagaRadienContent.contentproj">
       <Name>GalagaRadienContent</Name>
       <XnaReferenceType>Content</XnaReferenceType>
