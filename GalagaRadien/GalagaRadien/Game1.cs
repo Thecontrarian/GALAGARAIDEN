@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
-//using XnaUtility;
+using XnaUtility;
 using XnaUtility.Debug;
 
 namespace GalagaRadien
@@ -26,9 +26,19 @@ namespace GalagaRadien
         private double timePassed;
         private double frameRate;
         private Matrix scale;
+        private BaseDrawableEntity a;
+        private BaseEnemy b;
+        private BaseDrawableEntity c;
+        private BaseDrawableEntity test;
+        private KeyboardState current;
+        private KeyboardState last;
+        private int Width;
+        private int Height;
 
         public Game1()
         {
+            XnaUtility.UtilityMethods.CurrentGame = this;
+
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             
@@ -40,11 +50,22 @@ namespace GalagaRadien
             Components.Add(watch);
             Services.AddService(typeof(XnaWatch), watch);
             Components.Add(new PlayerClass(this));
-//            Components.Add(new FrameRateCounter(this));
+            Components.Add(new FrameRateCounter(this));
+//            graphics.IsFullScreen = true;
+//            graphics.PreferredBackBufferHeight = 600;
+//            graphics.PreferredBackBufferWidth = 600;
+            this.IsMouseVisible = true;
             graphics.SynchronizeWithVerticalRetrace = false;
             this.IsFixedTimeStep = false;
             graphics.ApplyChanges();
-            
+//            a = new BaseDrawableEntity(this) { test = "a" };
+//            b = new BaseEnemy(this) { test = "b" };
+//            c = new BaseDrawableEntity(this) { test = "c" };
+//            test = new BaseDrawableEntity(this) {test = ""};
+            Width = graphics.PreferredBackBufferWidth;
+            Height = graphics.PreferredBackBufferHeight;
+
+
         }
 
         /// <summary>
@@ -73,8 +94,10 @@ namespace GalagaRadien
             // Create a new SpriteBatch, which can be used to draw textures.
             
             watch.AddToWatch(new WatchItem("Component Count", () => this.Components.Count));
-            watch.AddToWatch(new WatchItem("FrameRate", () => frameRate));
+//            watch.AddToWatch(new WatchItem("FrameRate", () => frameRate));
             watch.AddToWatch(new WatchItem("Framestep", () => this.IsFixedTimeStep));
+            watch.AddToWatch(new WatchItem("RecycleBin", () => BaseDrawableEntity.RecycleBin.Count));
+//            watch.AddToWatch(new WatchItem("Test", () => test.test));
 
             // TODO: use this.Content to load your game content here
         }
@@ -96,17 +119,29 @@ namespace GalagaRadien
         protected override void Update(GameTime gameTime)
         {
             // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
+            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
+                Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
             timePassed += this.TargetElapsedTime.TotalSeconds;
             // TODO: Add your update logic here
-//            KeyboardState kbState = Keyboard.GetState();
-//            if (kbState.IsKeyDown(Keys.Space))
+            last = current;
+            current = Keyboard.GetState();
+            if (current.ClickPress(last,Keys.Space))
+            {
+//                this.Components.Add(a);
+//                this.Components.Add(b);
+//                this.Components.Add(c);
+                this.Components.Add(new BaseEnemy(this));
+            }
+//            if (current.ClickPress(last, Keys.X))
 //            {
-//                for (int i = 0; i < 10; i++)
-//                {
-//                    Components.Add(new PlayerClass(this));
-//                }
+//                a.Recycle();
+//                b.Recycle();
+//            }
+//            if (current.ClickPress(last, Keys.C))
+//            {
+//                test = BaseDrawableEntity.Create<BaseDrawableEntity>();
+//                this.Components.Add(test);
 //            }
 
             base.Update(gameTime);

@@ -17,22 +17,11 @@ namespace GalagaRadien
     /// <summary>
     /// This is a game component that implements IUpdateable.
     /// </summary>
-    public class PlayerClass : Microsoft.Xna.Framework.DrawableGameComponent
+    public class PlayerClass : BaseDrawableEntity
     {
         private double timePassed = 0;
-        private AtlasHandler atlasHandler;
-        private SpriteBatch spriteBatch;
-        private Random random;
-        private XnaUtility.Debug.XnaWatch watch;
-
-        public static readonly List<IGameComponent> RecycleBin = new List<IGameComponent>();
-        protected Vector2 Pos;
-        protected Vector2 Origin;
-        protected Vector2 Velocity;
         private KeyboardState LastKBState;
         private KeyboardState CurrentKBState;
-        public bool Alive { get; protected set; }
-        public float Angle { get; protected set; }
         private float timeInSeconds;
         private double sqrtVelY;
         private double sqrtVelX;
@@ -43,18 +32,19 @@ namespace GalagaRadien
             // TODO: Construct any child components here
         }
 
+        public PlayerClass()
+            : this(XnaUtility.UtilityMethods.CurrentGame)
+        {}
+
         /// <summary>
         /// Allows the game component to perform any initialization it needs to before starting
         /// to run.  This is where it can query for any required services and load content.
         /// </summary>
         public override void Initialize()
         {
-            atlasHandler = (AtlasHandler)Game.Services.GetService(typeof(AtlasHandler));
-            watch = (XnaWatch)Game.Services.GetService(typeof(XnaWatch));
-            random = (Random) Game.Services.GetService(typeof (Random));
-            spriteBatch = (SpriteBatch)Game.Services.GetService(typeof(SpriteBatch));
-            Origin = new Vector2((float) atlasHandler.Dictionary["pull_var3_frame1"].Width/2f,
-                                 (float) atlasHandler.Dictionary["pull_var3_frame1"].Height/2f);
+            base.Initialize();
+            Origin = new Vector2(atlasHandler.Dictionary["pull_var3_frame1"].Width/2f,
+                                 atlasHandler.Dictionary["pull_var3_frame1"].Height/2f);
             maxVelocity = 1000;
             increment = 7000;
             buffMultiplier = 3;
@@ -68,7 +58,6 @@ namespace GalagaRadien
             watch.AddToWatch(new WatchItem("SqrtVelX", () => sqrtVelX));
             watch.AddToWatch(new WatchItem("SqrtVelY", () => sqrtVelY));
             CurrentKBState = Keyboard.GetState();
-            base.Initialize();
         }
 
 		private void HandleInput(GameTime gameTime)
@@ -157,12 +146,10 @@ namespace GalagaRadien
 			if (CurrentKBState.ClickPress(LastKBState,Keys.D4)) 
 			{
 				increment+=100;
-//				(graphic as Spritemap).angle = ((graphic as Spritemap).angle  + 30) % 360;
 			}
 			if (CurrentKBState.ClickPress(LastKBState,Keys.D5)) 
 			{
 				buffMultiplier -= 1;
-//				(graphic as Spritemap).randFrame();
 			}
 			if (CurrentKBState.ClickPress(LastKBState,Keys.D6)) 
 			{

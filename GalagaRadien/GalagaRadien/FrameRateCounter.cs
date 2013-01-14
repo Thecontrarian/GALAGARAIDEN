@@ -8,6 +8,7 @@ using Microsoft.Xna.Framework.GamerServices;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
+using XnaUtility.Debug;
 
 
 namespace GalagaRadien
@@ -15,13 +16,10 @@ namespace GalagaRadien
     public class FrameRateCounter : DrawableGameComponent
     {
         ContentManager content;
-        SpriteBatch spriteBatch;
-        SpriteFont spriteFont;
 
         int frameRate = 0;
         int frameCounter = 0;
         TimeSpan elapsedTime = TimeSpan.Zero;
-
 
         public FrameRateCounter(Game game)
             : base(game)
@@ -32,8 +30,8 @@ namespace GalagaRadien
 
         protected override void LoadContent()
         {
-                spriteBatch = new SpriteBatch(GraphicsDevice);
-                spriteFont = Game.Content.Load<SpriteFont>("WatchListFont");
+            var watch = (XnaWatch) Game.Services.GetService(typeof (XnaWatch));
+            watch.AddToWatch(new WatchItem("FrameRate", () => frameRate));
         }
 
 
@@ -60,14 +58,6 @@ namespace GalagaRadien
         {
             frameCounter++;
 
-            string fps = string.Format("fps: {0}", frameRate);
-
-            spriteBatch.Begin();
-
-            spriteBatch.DrawString(spriteFont, fps, new Vector2(33, 33), Color.Black);
-            spriteBatch.DrawString(spriteFont, fps, new Vector2(32, 32), Color.White);
-
-            spriteBatch.End();
         }
     }
 }
