@@ -50,13 +50,12 @@ namespace GalagaRadien
             Components.Add(watch);
             Services.AddService(typeof(XnaWatch), watch);
             Components.Add(new PlayerClass(this));
+            Components.Add(new BaseEnemy(this));
             Components.Add(new FrameRateCounter(this));
 //            graphics.IsFullScreen = true;
-//            graphics.PreferredBackBufferHeight = 600;
-//            graphics.PreferredBackBufferWidth = 600;
+            graphics.PreferredBackBufferHeight = 750;
+            graphics.PreferredBackBufferWidth = 900;
             this.IsMouseVisible = true;
-            graphics.SynchronizeWithVerticalRetrace = false;
-            this.IsFixedTimeStep = false;
             graphics.ApplyChanges();
 //            a = new BaseDrawableEntity(this) { test = "a" };
 //            b = new BaseEnemy(this) { test = "b" };
@@ -93,10 +92,10 @@ namespace GalagaRadien
         {
             // Create a new SpriteBatch, which can be used to draw textures.
             
-            watch.AddToWatch(new WatchItem("Component Count", () => this.Components.Count));
-//            watch.AddToWatch(new WatchItem("FrameRate", () => frameRate));
+//            watch.AddToWatch(new WatchItem("Component Count", () => this.Components.Count));
+            watch.AddToWatch(new WatchItem("VSync", () => graphics.SynchronizeWithVerticalRetrace));
             watch.AddToWatch(new WatchItem("Framestep", () => this.IsFixedTimeStep));
-            watch.AddToWatch(new WatchItem("RecycleBin", () => BaseDrawableEntity.RecycleBin.Count));
+//            watch.AddToWatch(new WatchItem("RecycleBin", () => BaseDrawableEntity.RecycleBin.Count));
 //            watch.AddToWatch(new WatchItem("Test", () => test.test));
 
             // TODO: use this.Content to load your game content here
@@ -126,18 +125,16 @@ namespace GalagaRadien
             // TODO: Add your update logic here
             last = current;
             current = Keyboard.GetState();
-            if (current.ClickPress(last,Keys.Space))
+            if (current.ClickPress(last,Keys.Z))
             {
-//                this.Components.Add(a);
-//                this.Components.Add(b);
-//                this.Components.Add(c);
-                this.Components.Add(new BaseEnemy(this));
+                graphics.SynchronizeWithVerticalRetrace = !graphics.SynchronizeWithVerticalRetrace;
+                graphics.ApplyChanges();
             }
-//            if (current.ClickPress(last, Keys.X))
-//            {
-//                a.Recycle();
-//                b.Recycle();
-//            }
+            if (current.ClickPress(last, Keys.X))
+            {
+                this.IsFixedTimeStep = !this.IsFixedTimeStep;
+                graphics.ApplyChanges();
+            }
 //            if (current.ClickPress(last, Keys.C))
 //            {
 //                test = BaseDrawableEntity.Create<BaseDrawableEntity>();

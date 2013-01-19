@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GalagaRadienContent", "Gala
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XnaUtility", "..\XnaUtility\XnaUtility\XnaUtility.csproj", "{10CF453A-4F1F-4F58-81F8-3C6B8D4D1BA9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XmlReaderTest", "XmlReaderTest\XmlReaderTest.csproj", "{6F18E6D7-3F08-46C2-B4FF-323487EAE028}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x86 = Debug|x86
@@ -23,6 +25,10 @@ Global
 		{10CF453A-4F1F-4F58-81F8-3C6B8D4D1BA9}.Debug|x86.Build.0 = Debug|x86
 		{10CF453A-4F1F-4F58-81F8-3C6B8D4D1BA9}.Release|x86.ActiveCfg = Release|x86
 		{10CF453A-4F1F-4F58-81F8-3C6B8D4D1BA9}.Release|x86.Build.0 = Release|x86
+		{6F18E6D7-3F08-46C2-B4FF-323487EAE028}.Debug|x86.ActiveCfg = Debug|x86
+		{6F18E6D7-3F08-46C2-B4FF-323487EAE028}.Debug|x86.Build.0 = Debug|x86
+		{6F18E6D7-3F08-46C2-B4FF-323487EAE028}.Release|x86.ActiveCfg = Release|x86
+		{6F18E6D7-3F08-46C2-B4FF-323487EAE028}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
