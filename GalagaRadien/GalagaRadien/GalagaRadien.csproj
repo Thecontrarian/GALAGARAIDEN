@@ -73,6 +73,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AtlasHandler.cs" />
+    <Compile Include="CurveGenerationUtility.cs" />
     <Compile Include="FrameRateCounter.cs" />
     <Compile Include="BaseDrawableEntity.cs" />
     <Compile Include="BaseEnemy.cs" />

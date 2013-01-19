@@ -50,7 +50,7 @@ namespace GalagaRadien
             Components.Add(watch);
             Services.AddService(typeof(XnaWatch), watch);
             Components.Add(new PlayerClass(this));
-            Components.Add(new BaseEnemy(this));
+            Components.Add(new CurveGenerationUtility(this));
             Components.Add(new FrameRateCounter(this));
 //            graphics.IsFullScreen = true;
             graphics.PreferredBackBufferHeight = 750;

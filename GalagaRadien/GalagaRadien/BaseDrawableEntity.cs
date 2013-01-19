@@ -38,8 +38,6 @@ namespace GalagaRadien
 
         protected int WidthOfGame;
         protected int HeightOfGame;
-
-        public string test = "hat";
         public BaseDrawableEntity(Game game)
             : base(game)
         {
@@ -80,10 +78,29 @@ namespace GalagaRadien
             RecycleBin.Remove(First);
             return First;
         }
-
-        public void Reset(Vector2 pos)
+        /// <summary>
+        /// Resets position and stops all movement.
+        /// </summary>
+        /// <param name="pos">Location to reset position to.</param>
+        protected void Reset(Vector2 pos)
         {
-            
+            Pos = pos;
+            Velocity = new Vector2();
         }
+
+
+        /// <summary>
+        /// Adds a list of Rectangles cooresponding to sprites in atlasHander.Texture for the purpose of animation.
+        /// </summary>
+        /// <param name="frames">A list of strings corresponding to Rectangles in atlasHandler.Dictionary.</param>
+        protected void AddFrames(params string[] frames)
+        {
+            foreach (var frame in frames)
+            {
+                Frames.Add(atlasHandler.Dictionary[frame]);
+            }
+        }
+
+
     }
 }
