@@ -13,19 +13,26 @@ namespace XmlReaderTest
         
         static void Main(string[] args)
         {
-            FrameRate = 60;
-            Console.WriteLine(_frameRate);
-            Console.WriteLine(FrameRate);
-            FrameRate = 30;
-            Console.WriteLine(_frameRate);
-            Console.WriteLine(FrameRate);
-            FrameRate = 15;
-            Console.WriteLine(_frameRate);
-            Console.WriteLine(FrameRate);
-            FrameRate = 1;
-            Console.WriteLine(_frameRate);
-            Console.WriteLine(FrameRate);
-
+            var frameWidth = 5;
+            var grid = new int[5,5];
+            
+            var rect = new Rectangle(2, 4, 12, 5);
+            
+            for (int i = (int)Math.Floor((double) rect.Top/frameWidth); i < (int)Math.Ceiling((double) rect.Bottom/frameWidth); i++)
+            {
+                for (int j = (int)Math.Floor((double)rect.Left/frameWidth); j < (int)Math.Ceiling((double)rect.Right/frameWidth); j++)
+                {
+                    grid[j, i] = 1;
+                }
+            }
+            for (int i = 0; i < 5; i++)
+            {
+                for (int j = 0; j < 5; j++)
+                {
+                    Console.Write(grid[j,i] + " ");
+                }
+                Console.Write("\n");
+            }
             Console.ReadLine();
 
         }

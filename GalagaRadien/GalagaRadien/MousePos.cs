@@ -20,6 +20,7 @@ namespace GalagaRadien
         public MousePos(Game game)
             : base(game)
         {
+
             // TODO: Construct any child components here
         }
 

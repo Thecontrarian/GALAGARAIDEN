@@ -30,12 +30,28 @@ namespace GalagaRadien
         protected Vector2 Velocity;
         protected float Speed;
         protected List<Rectangle> Frames = new List<Rectangle>();
+        protected int CurrentFrameIndex = 0;
+        protected Rectangle BoundingRect;
         private float angleInRad;
         protected float AngleInRad{
         get { return angleInRad; }
         set
         {
             angleInRad = value;
+            if (value%MathHelper.TwoPi !=  0)
+            {
+                BoundingRect = BoundingRectWithRotation(
+                    new Rectangle((int) ((int) Pos.X/2f - Origin.X), (int) ((int) Pos.Y/2f - Origin.Y), Frames[0].Width,
+                                  Frames[0].Height),
+                    Pos/2,
+                    value);
+            }
+            else
+            {
+                BoundingRect = new Rectangle((int) ((int) Pos.X/2f - Origin.X), (int) ((int) Pos.Y/2f - Origin.Y),
+                                             Frames[0].Width,
+                                             Frames[0].Height);
+            }
             while (angleInRad > MathHelper.Pi)
             {
                 angleInRad -= MathHelper.TwoPi;
@@ -50,7 +66,55 @@ namespace GalagaRadien
             get { return MathHelper.ToDegrees(angleInRad) ; }
             set { AngleInRad = MathHelper.ToRadians(value); }
         }
+        //http://stackoverflow.com/questions/3162643/proper-trigonometry-for-rotating-a-point-around-the-origin
+        public Vector2 rotate_point(Vector2 PointToRotate, Vector2 Origin, float angle)
+        {
+            float sinTheta = (float)Math.Sin(angle);
+            float cosTheta = (float)Math.Cos(angle);
 
+            // translate point back to origin:
+            PointToRotate.X -= Origin.X;
+            PointToRotate.Y -= Origin.Y;
+
+            // Which One Is Correct:
+            // This?
+                        float xnew = PointToRotate.X * cosTheta - PointToRotate.Y * sinTheta;
+                        float ynew = PointToRotate.X * sinTheta + PointToRotate.Y * cosTheta;
+            // Or This?
+//            float xnew = PointToRotate.X * cosTheta + PointToRotate.Y * sinTheta;
+//            float ynew = -PointToRotate.X * sinTheta + PointToRotate.Y * cosTheta;
+
+            // translate point back:
+            //            PointToRotate.X = xnew + Origin.X;
+            //            PointToRotate.Y = ynew + Origin.Y;
+            return new Vector2(xnew + Origin.X, ynew + Origin.Y);
+
+        }
+        /// <summary>
+        /// returns a rectangle that would fit the given rectangle were that rectangle to be rotated the given theta about given orgin
+        /// </summary>
+        /// <returns></returns>
+        public Rectangle BoundingRectWithRotation(Rectangle rectToFit, Vector2 orgin, float theta)
+        {
+            var points = new Vector2[4];
+            points[0] = rotate_point(new Vector2(rectToFit.Left, rectToFit.Top), orgin, theta);
+            points[1] = rotate_point(new Vector2(rectToFit.Right, rectToFit.Top), orgin, theta);
+            points[2] = rotate_point(new Vector2(rectToFit.Left, rectToFit.Bottom), orgin, theta);
+            points[3] = rotate_point(new Vector2(rectToFit.Right, rectToFit.Bottom), orgin, theta);
+            float newTop = points[0].Y;
+            float newBottom = points[0].Y;
+            float newLeft = points[0].X;
+            float newRight = points[0].X;
+            foreach (Vector2 point in points)
+            {
+                newTop = point.Y < newTop ? point.Y : newTop;
+                newBottom = point.Y > newBottom ? point.Y : newBottom;
+                newLeft = point.X < newLeft ? point.X : newLeft;
+                newRight = point.X > newRight ? point.X : newRight;
+            }
+            return new Rectangle((int)newLeft, (int)newTop, (int)(newRight - newLeft), (int)(newBottom - newTop));
+
+        }
         protected float AnimTime;
         protected int WidthOfGame;
         protected int HeightOfGame;

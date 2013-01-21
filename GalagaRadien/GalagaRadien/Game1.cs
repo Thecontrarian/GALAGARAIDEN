@@ -50,7 +50,11 @@ namespace GalagaRadien
             Components.Add(watch);
             Services.AddService(typeof(XnaWatch), watch);
 //            Components.Add(new PlayerClass(this));
-            Components.Add(new NodePathPrototype(this));
+//            for (int i = 0; i < 100; i++)
+//            {
+                Components.Add(new NodePathPrototype(this));
+                
+//            }
             Components.Add(new MousePos(this));
             Components.Add(new FrameRateCounter(this));
 //            graphics.IsFullScreen = true;
