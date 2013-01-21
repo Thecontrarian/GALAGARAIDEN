@@ -77,6 +77,8 @@
     <Compile Include="FrameRateCounter.cs" />
     <Compile Include="BaseDrawableEntity.cs" />
     <Compile Include="BaseEnemy.cs" />
+    <Compile Include="MousePos.cs" />
+    <Compile Include="NodePathPrototype.cs" />
     <Compile Include="PlayerClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />

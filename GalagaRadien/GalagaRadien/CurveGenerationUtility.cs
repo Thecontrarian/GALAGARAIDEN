@@ -174,15 +174,15 @@ namespace GalagaRadien
         public override void Draw(GameTime gameTime)
         {
 
-            spriteBatch.DrawString(watch.font,
-                mouseState.X + ", " + mouseState.Y,
-                new Vector2(mouseState.X / 2f + 5f, mouseState.Y / 2f + 5f),
-                Color.White,
-                0f,
-                Vector2.Zero,
-                .5f,
-                SpriteEffects.None,
-                1);
+//            spriteBatch.DrawString(watch.font,
+//                mouseState.X + ", " + mouseState.Y,
+//                new Vector2(mouseState.X / 2f + 5f, mouseState.Y / 2f + 5f),
+//                Color.White,
+//                0f,
+//                Vector2.Zero,
+//                .5f,
+//                SpriteEffects.None,
+//                1);
             spriteBatch.Draw(atlasHandler.Texture, Pos / 2, Frames[0], Color.White,
                 (float)Math.Atan2(
                 Pos.Y - curveY.Evaluate(((float)timeSinceSpawn.TotalSeconds % span) + 0.0001f),

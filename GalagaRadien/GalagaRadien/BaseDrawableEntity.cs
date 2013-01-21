@@ -28,14 +28,30 @@ namespace GalagaRadien
         protected Vector2 Pos;
         protected Vector2 Origin;
         protected Vector2 Velocity;
+        protected float Speed;
         protected List<Rectangle> Frames = new List<Rectangle>();
-        protected float _angle;
-        protected float Angle
+        private float angleInRad;
+        protected float AngleInRad{
+        get { return angleInRad; }
+        set
         {
-            get { return _angle/MathHelper.TwoPi*360; }
-            set { _angle = value/360*MathHelper.TwoPi; }
+            angleInRad = value;
+            while (angleInRad > MathHelper.Pi)
+            {
+                angleInRad -= MathHelper.TwoPi;
+            }
+            while (angleInRad < -MathHelper.Pi)
+            {
+                angleInRad += MathHelper.TwoPi;
+            }
+        }}
+        protected float AngleInDeg
+        {
+            get { return MathHelper.ToDegrees(angleInRad) ; }
+            set { AngleInRad = MathHelper.ToRadians(value); }
         }
 
+        protected float AnimTime;
         protected int WidthOfGame;
         protected int HeightOfGame;
         public BaseDrawableEntity(Game game)
@@ -76,16 +92,18 @@ namespace GalagaRadien
             T First = RecycleBin.OfType<T>().FirstOrDefault();
             if(First == null){return new T();}
             RecycleBin.Remove(First);
+            First.AnimTime = 0;
+            First.Refresh();
             return First;
         }
         /// <summary>
-        /// Resets position and stops all movement.
+        /// Method that gets called everytime an object of this class gets returned
+        /// to the game from the recycle bin. Should be overloaded. Should include things like return health to full.
+        /// The purpose of of this method in combonation with the recycle and create methods are reuse objects in 
+        /// memory but give the illusion of a new instance.
         /// </summary>
-        /// <param name="pos">Location to reset position to.</param>
-        protected void Reset(Vector2 pos)
+        protected void Refresh()
         {
-            Pos = pos;
-            Velocity = new Vector2();
         }
 
 
@@ -100,7 +118,9 @@ namespace GalagaRadien
                 Frames.Add(atlasHandler.Dictionary[frame]);
             }
         }
-
-
+        protected void HandleAnimation(GameTime gameTime)
+        {
+            
+        }
     }
 }

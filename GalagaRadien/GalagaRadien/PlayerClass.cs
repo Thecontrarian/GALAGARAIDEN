@@ -200,12 +200,13 @@ namespace GalagaRadien
         /// <param name="gameTime">Time passed since the last call to Draw.</param>
         public override void Draw(GameTime gameTime)
         {
+            HandleAnimation(gameTime);
             spriteBatch.Draw(
                 atlasHandler.Texture,
                 Pos/2,
-                atlasHandler.Dictionary["pull_var3_frame1"],
+                Frames[0],
                 Color.White, 
-                Angle/360f*MathHelper.TwoPi,
+                AngleInRad,
                 Origin,
                 1f,
                 SpriteEffects.None,
@@ -218,6 +219,7 @@ namespace GalagaRadien
         /// </summary>
         protected override void LoadContent()
         {
+            AddFrames("pull_var3_frame1", "pull_var3_frame2");
             base.LoadContent();
         }
 
