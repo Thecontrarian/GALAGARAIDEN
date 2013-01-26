@@ -72,7 +72,7 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AtlasHandler.cs" />
+    <Compile Include="CollisionPrototype.cs" />
     <Compile Include="CurveGenerationUtility.cs" />
     <Compile Include="FrameRateCounter.cs" />
     <Compile Include="BaseDrawableEntity.cs" />

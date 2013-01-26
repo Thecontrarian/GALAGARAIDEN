@@ -52,7 +52,7 @@ namespace GalagaRadien
 //            Components.Add(new PlayerClass(this));
 //            for (int i = 0; i < 100; i++)
 //            {
-                Components.Add(new NodePathPrototype(this));
+                Components.Add(new CollisionPrototype(this));
                 
 //            }
             Components.Add(new MousePos(this));
