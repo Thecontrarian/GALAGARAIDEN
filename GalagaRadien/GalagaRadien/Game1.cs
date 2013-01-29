@@ -34,6 +34,7 @@ namespace GalagaRadien
         private KeyboardState last;
         private int Width;
         private int Height;
+        private string str;
 
         public Game1()
         {
@@ -50,11 +51,13 @@ namespace GalagaRadien
             Components.Add(watch);
             Services.AddService(typeof(XnaWatch), watch);
 //            Components.Add(new PlayerClass(this));
-//            for (int i = 0; i < 100; i++)
-//            {
-                Components.Add(new CollisionPrototype(this));
+            for (int i = 0; i < 40; i++)
+            {
+                var test = new TestCollClass(this);
+                test.index = i.ToString();
+                Components.Add(test);
                 
-//            }
+            }
             Components.Add(new MousePos(this));
             Components.Add(new FrameRateCounter(this));
 //            graphics.IsFullScreen = true;
@@ -83,9 +86,9 @@ namespace GalagaRadien
             // TODO: Add your initialization logic here
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Services.AddService(typeof(SpriteBatch), spriteBatch);
-            
+            str = "";
             scale = Matrix.CreateScale(2f,2f,1f);
-//            watch.AddToWatch(new WatchItem("Scale", () => scale));
+            watch.AddToWatch(new WatchItem("", () => str));
             base.Initialize();
         }
 
@@ -145,7 +148,13 @@ namespace GalagaRadien
 //                test = BaseDrawableEntity.Create<BaseDrawableEntity>();
 //                this.Components.Add(test);
 //            }
-
+            
+            var hit = BaseCollidableEntity.TestColls();
+            foreach (var tuple in hit)
+            {
+                str += "(" + (tuple.Item1 as TestCollClass).index.ToString() + "," +
+                       (tuple.Item2 as TestCollClass).index.ToString() + ")";
+            }
             base.Update(gameTime);
         }
 
@@ -160,6 +169,7 @@ namespace GalagaRadien
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Deferred, null,SamplerState.PointClamp,null,null,null,scale);
             base.Draw(gameTime);
+            str = "";
             spriteBatch.End();
         }
     }

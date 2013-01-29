@@ -33,7 +33,6 @@ namespace GalagaRadien
         }
         public CollisionPrototype()
         {
-            
         }
 
         

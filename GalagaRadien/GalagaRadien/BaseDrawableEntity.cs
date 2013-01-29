@@ -32,7 +32,7 @@ namespace GalagaRadien
         protected List<Rectangle> Frames = new List<Rectangle>();
         protected List<Color[,]> ColorArrays = new List<Color[,]>();
         protected int CurrentFrameIndex = 0;
-        protected Rectangle BoundingRect;
+        public Rectangle BoundingRect;
         protected bool test;
         private float angleInRad;
 
@@ -55,8 +55,8 @@ namespace GalagaRadien
                     new Rectangle(
                         (int) ((int) Pos.X/2f - Origin.X),
                         (int) ((int) Pos.Y/2f - Origin.Y), 
-                        Frames[0].Width,
-                        Frames[0].Height),
+                        Frames[CurrentFrameIndex].Width,
+                        Frames[CurrentFrameIndex].Height),
                     Pos/2,
                     angleInRad);
             }
@@ -65,8 +65,8 @@ namespace GalagaRadien
                 BoundingRect = new Rectangle(
                     (int) ((int) Pos.X/2f - Origin.X), 
                     (int) ((int) Pos.Y/2f - Origin.Y),
-                    Frames[0].Width,
-                    Frames[0].Height);
+                    Frames[CurrentFrameIndex].Width,
+                    Frames[CurrentFrameIndex].Height);
             }
 //            Matrix transform =
 //                Matrix.CreateTranslation(new Vector3(-Origin, 0.0f)) *
@@ -243,6 +243,10 @@ namespace GalagaRadien
             // Return that as a rectangle
             return new Rectangle((int)min.X, (int)min.Y,
                                  (int)(max.X - min.X), (int)(max.Y - min.Y));
+        }
+        protected void StandardDraw()
+        {
+            spriteBatch.Draw(atlasHandler.Texture, Pos / 2, Frames[CurrentFrameIndex], Color.White, AngleInRad, Origin, 1f, SpriteEffects.None, 1f);
         }
     }
 }

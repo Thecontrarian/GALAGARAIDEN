@@ -72,17 +72,24 @@
     <Reference Include="System.Net" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Arm1ProtoRight.cs" />
+    <Compile Include="BaseCollidableEntity.cs" />
     <Compile Include="CollisionPrototype.cs" />
+    <Compile Include="Arm2ProtoRight.cs" />
+    <Compile Include="Arm1ProtoLeft.cs" />
+    <Compile Include="Arm2ProtoLeft.cs" />
     <Compile Include="CurveGenerationUtility.cs" />
     <Compile Include="FrameRateCounter.cs" />
     <Compile Include="BaseDrawableEntity.cs" />
     <Compile Include="BaseEnemy.cs" />
+    <Compile Include="Joint1Proto.cs" />
     <Compile Include="MousePos.cs" />
     <Compile Include="NodePathPrototype.cs" />
     <Compile Include="PlayerClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
+    <Compile Include="TestCollClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />

@@ -10,50 +10,68 @@ namespace XmlReaderTest
 {
     class Program
     {
+        public bool Flagged = false;
+
+
+
         static void Main(string[] args)
         {
-            var rand = new Random();
-            var rect = new List<Rectangle>();
-            var position = new List<Vector2>();
-            var rectForMat = new List<Rectangle>();
-            var origin = new List<Vector2>();
-            var rotation = new List<float>();
-            for (int i = 0; i < 1000; i++)
+            var list = new List<Program>();
+            list.Add(new Program());
+            list.Add(new Program());
+            list.Add(new Program());
+            list.Add(new Program());
+            list.Add(new Program());
+            
+            foreach (var s in list.Distinct())
             {
-                rectForMat.Add(new Rectangle(0,0,rand.Next(100),rand.Next(100)));
-                position.Add(new Vector2(rand.Next(100),rand.Next(100)));
-                rect.Add(new Rectangle(rand.Next(100),rand.Next(100),rand.Next(100),rand.Next(100)));
-                origin.Add(new Vector2(rand.Next(100),rand.Next(100)));
-                rotation.Add(rand.Next((int) (MathHelper.TwoPi*1000f))/1000f);
+                s.Flagged=true;
+                
             }
-            long ticksForMine = 0;
-            long ticksForMat = 0;
-//            var position = new Vector2(56, 24);
-//            var list = new List<TimeSpan>();
-            for (int i = 0; i < 1000; i++)
-            {
-
-                long time = DateTime.Now.Ticks;
-                // Build the block's transform
-                Matrix transform =
-                    Matrix.CreateTranslation(new Vector3(-origin[i], 0.0f)) *
-                    // Matrix.CreateScale(block.Scale) *  would go here
-                    Matrix.CreateRotationZ(rotation[i]) *
-                    Matrix.CreateTranslation(new Vector3(position[i], 0.0f));
-                var newRect = CalculateBoundingRectangle(rectForMat[i], transform);
-                ticksForMat += (DateTime.Now.Ticks - time);
-
-                time = DateTime.Now.Ticks;
-                var newrect = BoundingRectWithRotation(rect[i], origin[i], rotation[i]);
-                ticksForMine += (DateTime.Now.Ticks - time);
-            }
-            var mat = ticksForMat / 1000;
-            var mine = ticksForMine / 1000;
-
-
-            Console.WriteLine(mat);
-            Console.WriteLine(mine);
             Console.ReadLine();
+
+//            var rand = new Random();
+//            var rect = new List<Rectangle>();
+//            var position = new List<Vector2>();
+//            var rectForMat = new List<Rectangle>();
+//            var origin = new List<Vector2>();
+//            var rotation = new List<float>();
+//            for (int i = 0; i < 1000; i++)
+//            {
+//                rectForMat.Add(new Rectangle(0,0,rand.Next(100),rand.Next(100)));
+//                position.Add(new Vector2(rand.Next(100),rand.Next(100)));
+//                rect.Add(new Rectangle(rand.Next(100),rand.Next(100),rand.Next(100),rand.Next(100)));
+//                origin.Add(new Vector2(rand.Next(100),rand.Next(100)));
+//                rotation.Add(rand.Next((int) (MathHelper.TwoPi*1000f))/1000f);
+//            }
+//            long ticksForMine = 0;
+//            long ticksForMat = 0;
+////            var position = new Vector2(56, 24);
+////            var list = new List<TimeSpan>();
+//            for (int i = 0; i < 1000; i++)
+//            {
+//
+//                long time = DateTime.Now.Ticks;
+//                // Build the block's transform
+//                Matrix transform =
+//                    Matrix.CreateTranslation(new Vector3(-origin[i], 0.0f)) *
+//                    // Matrix.CreateScale(block.Scale) *  would go here
+//                    Matrix.CreateRotationZ(rotation[i]) *
+//                    Matrix.CreateTranslation(new Vector3(position[i], 0.0f));
+//                var newRect = CalculateBoundingRectangle(rectForMat[i], transform);
+//                ticksForMat += (DateTime.Now.Ticks - time);
+//
+//                time = DateTime.Now.Ticks;
+//                var newrect = BoundingRectWithRotation(rect[i], origin[i], rotation[i]);
+//                ticksForMine += (DateTime.Now.Ticks - time);
+//            }
+//            var mat = ticksForMat / 1000;
+//            var mine = ticksForMine / 1000;
+//
+//
+//            Console.WriteLine(mat);
+//            Console.WriteLine(mine);
+//            Console.ReadLine();
 
         }
 
