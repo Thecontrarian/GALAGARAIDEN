@@ -23,7 +23,7 @@ namespace GalagaRadien
             base.Initialize();
             AxisList.Add(this);
             Pos.X = random.Next(WidthOfGame);
-            Pos.Y = random.Next(HeightOfGame);
+            Pos.Y = random.Next(HeightOfGame)+50;
             AngleInDeg = 0;
             CollideType = CollideTypes.EnemyShips;
             CollideAgainstTypes.Add(CollideTypes.EnemyShips);
@@ -32,14 +32,14 @@ namespace GalagaRadien
 
         public override void Update(GameTime gameTime)
         {
-//            AngleInDeg += 2;
+            AngleInDeg += 2;
             base.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
             StandardDraw();
-            spriteBatch.DrawString(watch.font,index,Pos/2,Color.White);
+//            spriteBatch.DrawString(watch.font,index,Pos/2,Color.White);
             base.Draw(gameTime);
         }
 

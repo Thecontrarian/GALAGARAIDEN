@@ -1,0 +1,50 @@
+#This is a potential template for the level scripts for GALAGARAIDEN
+GraaALevel1:
+ BlockType: Enemy
+ Base: graa_1a
+ Health: 50
+ Speed: 5
+
+GraaALevel2:
+ BlockType: Enemy
+ Base: graa_1b
+ Health: 75
+ Speed: 7
+
+Wing1:
+ BlockType: Wing
+ Contents:
+  - 
+   Varient: GraaALevel1
+   Number: 5
+  -
+   Varient: GraaALevel2
+   Number: 2
+ EntrySide: Left # Right, Top, Random, Split_Sides, Split_all, etc.
+ Proceed: All_Dead
+
+Wing2:
+ BlockType: Wing
+ Contents:
+  - 
+   Type: GraaALevel2
+   Number: 7
+  -
+   Type: GraaALevel1
+   Number: 5
+ EntrySide: Right
+ Proceed: All_Dead
+
+Game:
+ - Wing1
+ - Wing1
+ - Wing2
+ - Wing1
+ - Boss1
+
+Boss1:
+ BlockType: Enemy
+ Base: boss_1
+ Health: 200
+ Speed: 3
+

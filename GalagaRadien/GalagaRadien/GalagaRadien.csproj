@@ -65,31 +65,47 @@
     <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.GamerServices, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="mscorlib" />
+    <Reference Include="Noesis.Javascript" Condition="'$(PlatformTarget)' != 'x86'">
+      <HintPath>..\..\packages\Noesis.Javascript.0.7.1.0\lib\net40\amd64\Noesis.Javascript.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Net" />
+    <Reference Include="YamlDotNet.Converters">
+      <HintPath>..\..\packages\YamlDotNet.Converters.1.1.17\lib\YamlDotNet.Converters.dll</HintPath>
+    </Reference>
+    <Reference Include="YamlDotNet.Core">
+      <HintPath>..\..\packages\YamlDotNet.Core.1.1.17\lib\YamlDotNet.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="YamlDotNet.RepresentationModel">
+      <HintPath>..\..\packages\YamlDotNet.RepresentationModel.1.1.17\lib\YamlDotNet.RepresentationModel.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Arm1ProtoRight.cs" />
+    <Compile Include="BaseEntity.cs" />
+    <Compile Include="OLD\Arm1ProtoRight.cs" />
     <Compile Include="BaseCollidableEntity.cs" />
-    <Compile Include="CollisionPrototype.cs" />
-    <Compile Include="Arm2ProtoRight.cs" />
-    <Compile Include="Arm1ProtoLeft.cs" />
-    <Compile Include="Arm2ProtoLeft.cs" />
-    <Compile Include="CurveGenerationUtility.cs" />
+    <Compile Include="OLD\CollisionPrototype.cs" />
+    <Compile Include="OLD\Arm2ProtoRight.cs" />
+    <Compile Include="OLD\Arm1ProtoLeft.cs" />
+    <Compile Include="OLD\Arm2ProtoLeft.cs" />
+    <Compile Include="OLD\CurveGenerationUtility.cs" />
     <Compile Include="FrameRateCounter.cs" />
     <Compile Include="BaseDrawableEntity.cs" />
-    <Compile Include="BaseEnemy.cs" />
-    <Compile Include="Joint1Proto.cs" />
+    <Compile Include="OLD\BaseEnemy.cs" />
+    <Compile Include="TypeSpecs\ITypeSpec.cs" />
+    <Compile Include="TypeSpecs\WingSpec.cs" />
+    <Compile Include="Wing.cs" />
+    <Compile Include="OLD\Joint1Proto.cs" />
     <Compile Include="MousePos.cs" />
-    <Compile Include="NodePathPrototype.cs" />
+    <Compile Include="OLD\NodePathPrototype.cs" />
     <Compile Include="PlayerClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Game1.cs" />
-    <Compile Include="TestCollClass.cs" />
+    <Compile Include="OLD\TestCollClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Game.ico" />
@@ -103,8 +119,9 @@
       <Name>XnaUtility</Name>
     </ProjectReference>
     <ProjectReference Include="..\GalagaRadienContent\GalagaRadienContent.contentproj">
-      <Name>GalagaRadienContent</Name>
+      <Name>GalagaRadienContent %28Content%29</Name>
       <XnaReferenceType>Content</XnaReferenceType>
+      <Project>{96F9B698-C35A-4BF1-AD28-650960A46406}</Project>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -134,8 +151,20 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="LevelTemplate.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
   <!--
       To modify your build process, add your task inside one of the targets below and uncomment it. 
       Other similar extension points exist, see Microsoft.Common.targets.

@@ -3,32 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Xml;
+using System.IO;
+using System.Reflection;
 using Microsoft.Xna.Framework;
+using YamlDotNet.RepresentationModel;
 
 
 namespace XmlReaderTest
 {
     class Program
     {
-        public bool Flagged = false;
-
-
-
         static void Main(string[] args)
         {
-            var list = new List<Program>();
-            list.Add(new Program());
-            list.Add(new Program());
-            list.Add(new Program());
-            list.Add(new Program());
-            list.Add(new Program());
-            
-            foreach (var s in list.Distinct())
+            var doc = new System.IO.FileStream("LevelTemplate.yaml", FileMode.Open);
+            var yaml = new YamlStream();
+            yaml.Load(new StreamReader(doc));
+
+            var mapping = (YamlMappingNode) yaml.Documents[0].RootNode;
+            foreach (var child in mapping.Children.Select(entry => entry.Key))
             {
-                s.Flagged=true;
-                
+                Console.WriteLine(child);
             }
             Console.ReadLine();
+//            Console.WriteLine("{0}",);
+
+            // List all the items
+//            var items = (YamlSequenceNode)mapping.Children[new YamlScalarNode("items")];
+//            foreach (YamlMappingNode item in items)
+//            {
+//                Console.WriteLine(
+//                    "{0}",
+//                    item.Children[new YamlScalarNode("")]
+//                );
+//            }
 
 //            var rand = new Random();
 //            var rect = new List<Rectangle>();

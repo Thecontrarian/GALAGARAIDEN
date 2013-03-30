@@ -17,14 +17,10 @@ namespace GalagaRadien
     /// <summary>
     /// This is a game component that implements IUpdateable.
     /// </summary>
-    public class BaseDrawableEntity : Microsoft.Xna.Framework.DrawableGameComponent
+    public class BaseDrawableEntity : BaseEntity
     {
         protected AtlasHandler atlasHandler;
         protected SpriteBatch spriteBatch;
-        protected Random random;
-        protected XnaUtility.Debug.XnaWatch watch;
-        protected GraphicsDevice device;
-        public static readonly List<BaseDrawableEntity> RecycleBin = new List<BaseDrawableEntity>();
         protected Vector2 Pos;
         protected Vector2 Origin;
         protected Vector2 Velocity;
@@ -82,11 +78,7 @@ namespace GalagaRadien
             set { AngleInRad = MathHelper.ToRadians(value); }
         }
 
-        protected float AnimTime;
-
-        protected int WidthOfGame;
-
-        protected int HeightOfGame;
+        public float AnimTime;
 
         public BaseDrawableEntity(Game game)
             : base(game)
@@ -95,9 +87,8 @@ namespace GalagaRadien
         }
 
         public BaseDrawableEntity()
-            : this(XnaUtility.UtilityMethods.CurrentGame)
         {
-            
+        
         }
 
         /// <summary>
@@ -107,40 +98,8 @@ namespace GalagaRadien
         public override void Initialize()
         {
             atlasHandler = (AtlasHandler)Game.Services.GetService(typeof(AtlasHandler));
-            watch = (XnaWatch)Game.Services.GetService(typeof(XnaWatch));
-            random = (Random)Game.Services.GetService(typeof(Random));
             spriteBatch = (SpriteBatch)Game.Services.GetService(typeof(SpriteBatch));
-            device = Game.GraphicsDevice;
-            HeightOfGame = device.PresentationParameters.BackBufferHeight;
-            WidthOfGame = device.PresentationParameters.BackBufferWidth;
             base.Initialize();
-        }
-
-        public void Recycle()
-        {
-            if (!Game.Components.Contains(this)) return;
-            Game.Components.Remove(this);
-            RecycleBin.Add(this);
-        }
-
-        public static T Create<T>() where T : BaseDrawableEntity, new()
-        {
-            T First = RecycleBin.OfType<T>().FirstOrDefault();
-            if(First == null){return new T();}
-            RecycleBin.Remove(First);
-            First.AnimTime = 0;
-            First.Refresh();
-            return First;
-        }
-
-        /// <summary>
-        /// Method that gets called everytime an object of this class gets returned
-        /// to the game from the recycle bin. Should be overloaded. Should include things like return health to full.
-        /// The purpose of of this method in combonation with the recycle and create methods are reuse objects in 
-        /// memory but give the illusion of a new instance.
-        /// </summary>
-        protected void Refresh()
-        {
         }
 
 

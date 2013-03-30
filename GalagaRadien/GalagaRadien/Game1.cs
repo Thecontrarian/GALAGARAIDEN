@@ -35,11 +35,12 @@ namespace GalagaRadien
         private int Width;
         private int Height;
         private string str;
+        private int count = 0;
 
         public Game1()
         {
             XnaUtility.UtilityMethods.CurrentGame = this;
-
+            
             graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             
@@ -50,25 +51,10 @@ namespace GalagaRadien
             watch = new XnaWatch(this,Color.White);
             Components.Add(watch);
             Services.AddService(typeof(XnaWatch), watch);
-//            Components.Add(new PlayerClass(this));
-            for (int i = 0; i < 40; i++)
-            {
-                var test = new TestCollClass(this);
-                test.index = i.ToString();
-                Components.Add(test);
-                
-            }
-            Components.Add(new MousePos(this));
-            Components.Add(new FrameRateCounter(this));
-//            graphics.IsFullScreen = true;
             graphics.PreferredBackBufferHeight = 750;
             graphics.PreferredBackBufferWidth = 900;
             this.IsMouseVisible = true;
             graphics.ApplyChanges();
-//            a = new BaseDrawableEntity(this) { test = "a" };
-//            b = new BaseEnemy(this) { test = "b" };
-//            c = new BaseDrawableEntity(this) { test = "c" };
-//            test = new BaseDrawableEntity(this) {test = ""};
             Width = graphics.PreferredBackBufferWidth;
             Height = graphics.PreferredBackBufferHeight;
 
@@ -86,9 +72,7 @@ namespace GalagaRadien
             // TODO: Add your initialization logic here
             spriteBatch = new SpriteBatch(GraphicsDevice);
             Services.AddService(typeof(SpriteBatch), spriteBatch);
-            str = "";
             scale = Matrix.CreateScale(2f,2f,1f);
-            watch.AddToWatch(new WatchItem("", () => str));
             base.Initialize();
         }
 
@@ -98,14 +82,6 @@ namespace GalagaRadien
         /// </summary>
         protected override void LoadContent()
         {
-            // Create a new SpriteBatch, which can be used to draw textures.
-            
-//            watch.AddToWatch(new WatchItem("Component Count", () => this.Components.Count));
-            watch.AddToWatch(new WatchItem("VSync", () => graphics.SynchronizeWithVerticalRetrace));
-            watch.AddToWatch(new WatchItem("Framestep", () => this.IsFixedTimeStep));
-//            watch.AddToWatch(new WatchItem("RecycleBin", () => BaseDrawableEntity.RecycleBin.Count));
-//            watch.AddToWatch(new WatchItem("Test", () => test.test));
-
             // TODO: use this.Content to load your game content here
         }
 
@@ -129,32 +105,9 @@ namespace GalagaRadien
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed ||
                 Keyboard.GetState().IsKeyDown(Keys.Escape))
                 this.Exit();
-            timePassed += this.TargetElapsedTime.TotalSeconds;
             // TODO: Add your update logic here
             last = current;
             current = Keyboard.GetState();
-            if (current.ClickPress(last,Keys.Z))
-            {
-                graphics.SynchronizeWithVerticalRetrace = !graphics.SynchronizeWithVerticalRetrace;
-                graphics.ApplyChanges();
-            }
-            if (current.ClickPress(last, Keys.X))
-            {
-                this.IsFixedTimeStep = !this.IsFixedTimeStep;
-                graphics.ApplyChanges();
-            }
-//            if (current.ClickPress(last, Keys.C))
-//            {
-//                test = BaseDrawableEntity.Create<BaseDrawableEntity>();
-//                this.Components.Add(test);
-//            }
-            
-            var hit = BaseCollidableEntity.TestColls();
-            foreach (var tuple in hit)
-            {
-                str += "(" + (tuple.Item1 as TestCollClass).index.ToString() + "," +
-                       (tuple.Item2 as TestCollClass).index.ToString() + ")";
-            }
             base.Update(gameTime);
         }
 
@@ -169,7 +122,6 @@ namespace GalagaRadien
             // TODO: Add your drawing code here
             spriteBatch.Begin(SpriteSortMode.Deferred, null,SamplerState.PointClamp,null,null,null,scale);
             base.Draw(gameTime);
-            str = "";
             spriteBatch.End();
         }
     }
